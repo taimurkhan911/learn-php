@@ -6,21 +6,18 @@ class connection
     protected $user='root';
     protected $pass='';
     protected $dbName='learnDb';
-
+protected $db_select;
 
 
     public function Dbconnection()
         {
-          $conn=mysqli_connect($this->host, $this->user, $this->pass) or die("Unable to connect to MySQL"); 
-
-          if(!$conn)
-            { die("unable to connect to host");}
-         else
-            { mysqli_select_db($this->dbName,$conn); }
-    $this->conn=$conn;
-         return  $conn;
-            // $conn = mysqli_connect($host,$user,$pass,$db) or die("Couldn't connect");
-             //   return $conn;
+    $conn = new mysqli($this->host,$this->user,$this->pass,$this->dbName);
+    if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+    }
+    //else{ echo "Connected successfully";}
+   $this->conn=$conn;
+   return $conn;
         }
 }
 ?>
