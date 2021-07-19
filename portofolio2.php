@@ -1,0 +1,123 @@
+<?php
+include "Layout/main_header.php"
+?>
+<!-- SUBHEADER
+================================================== -->
+<div id="subheader">
+	<div class="row">
+		<div class="twelve columns">
+			<p>
+				 PORTOFOLIO Two Columns
+			</p>
+		</div>
+	</div>
+</div>
+<div class="hr">
+</div>
+<!-- CONTENT 
+================================================== -->
+<div class="row">
+	<div class="twelve columns">
+		<!-- CATEGORIES-->
+		<section id="options" class="clearfix">
+		<ul id="filters" class="option-set clearfix" data-option-key="filter">
+			<li><a href="#filter" data-option-value="*" class="portofoliobutton selected">Show all</a></li>
+			<li><a href="#filter" data-option-value=".nature" class="portofoliobutton">Nature</a></li>
+			<li><a href="#filter" data-option-value=".trains" class="portofoliobutton">Trains</a></li>
+			<li><a href="#filter" data-option-value=".castles" class="portofoliobutton">Castles</a></li>
+		</ul>
+		</section>
+	</div>
+</div>
+<div id="portofolio" class="row">
+	<!-- Project 1-->
+	<div class="six columns category trains">
+		<h5>OLD TIMES</h5>
+		<p>
+			 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+		</p>
+		<div class="portofoliothumb">
+			<div class="portofoliothumboverlay">
+				<div class="viewgallery">
+					<!--image here -->
+					<a data-gal="prettyPhoto[gallery]" href="http://www.wowthemes.net/demo/studiofrancesca/images/temp/folio1.jpg"><img src="http://www.wowthemes.net/demo/studiofrancesca/images/playgal.png" class="left galleryicon" alt=""> Gallery</a>
+				</div>
+				<div class="inner">
+					<a class="projectdetail" href="portofoliodetail.php">+ Project Details</a>
+				</div>
+			</div>
+			<!-- image here -->
+			<img src="http://www.wowthemes.net/demo/studiofrancesca/images/temp/folio1.jpg" alt="">
+		</div>
+	</div>
+	<!-- Project 2-->
+	<div class="six columns category castles nature">
+		<h5>MASTERPIECE</h5>
+		<p>
+			 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+		</p>
+		<div class="portofoliothumb">
+			<div class="portofoliothumboverlay">
+				<div class="viewgallery">
+					<a data-gal="prettyPhoto[gallery]" href="http://www.wowthemes.net/demo/studiofrancesca/images/temp/folio2.jpg"><img src="http://www.wowthemes.net/demo/studiofrancesca/images/playgal.png" class="left galleryicon" alt=""> Gallery</a>
+				</div>
+				<div class="inner">
+					<a class="projectdetail" href="portofoliodetail.php">+ Project Details</a>
+				</div>
+			</div>
+			<img src="http://www.wowthemes.net/demo/studiofrancesca/images/temp/folio2.jpg" alt=""/>
+		</div>
+	</div>
+	<!-- Project 3-->
+	<div class="six columns category nature">
+		<h5>SHADOW LIGHT</h5>
+		<p>
+			 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+		</p>
+		<div class="portofoliothumb">
+			<div class="portofoliothumboverlay">
+				<div class="viewgallery">
+					<a data-gal="prettyPhoto[gallery]" href="http://www.wowthemes.net/demo/studiofrancesca/images/temp/folio3.jpg"><img src="http://www.wowthemes.net/demo/studiofrancesca/images/playgal.png" class="left galleryicon" alt=""> Gallery</a>
+				</div>
+				<div class="inner">
+					<a class="projectdetail" href="portofoliodetail.html">+ Project Details</a>
+				</div>
+			</div>
+			<img src="http://www.wowthemes.net/demo/studiofrancesca/images/temp/folio3.jpg" alt=""/>
+		</div>
+	</div>
+	<!-- Project 4-->
+	<div class="six columns category nature castles">
+		<h5>WHITE CASTLE</h5>
+		<p>
+			 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+		</p>
+		<div class="portofoliothumb">
+			<div class="portofoliothumboverlay">
+				<div class="viewgallery">
+					<a data-gal="prettyPhoto[gallery]" href="http://www.wowthemes.net/demo/studiofrancesca/images/temp/folio4.jpg"><img src="http://www.wowthemes.net/demo/studiofrancesca/images/playgal.png" class="left galleryicon" alt=""> Gallery</a>
+				</div>
+				<div class="inner">
+					<a class="projectdetail" href="portofoliodetail.php">+ Project Details</a>
+				</div>
+			</div>
+			<img src="http://www.wowthemes.net/demo/studiofrancesca/images/temp/folio4.jpg" alt=""/>
+		</div>
+	</div>
+</div>
+<div class="hr">
+</div>
+
+<!-- FOOOTER 
+================================================== -->
+<?php
+include "Layout/Footer.php";
+/* JAVASCRIPTS 
+================================================== -->
+<!-- Javascript files placed here for faster loading -->*/
+
+include "javascripts/addJavascriptFiles.php";
+?>
+
+</body>
+</html>
