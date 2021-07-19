@@ -24,12 +24,16 @@ protected $total_pages;
       $this->connecting= new connection();
       $this->Dbconn=$this->connecting->Dbconnection();
     }
+
+
   function query_data($sqlQuery)
     {
      $this->sqlQuery=$sqlQuery;
      $this->result=mysqli_query($this->Dbconn, $this->sqlQuery) or trigger_error(mysqli_error($this->Dbconn));
      return  $this->result;
     }
+
+
  function pagination_elements()
     {
     $this->results_per_page = 10; 
@@ -45,6 +49,17 @@ protected $total_pages;
 
      $start_from_lim=($this->page-1)*$this->results_per_page;
      return $start_from_lim;
+    }
+    
+    function pagination()
+    {
+        $this->sqlQuery = 'SELECT * FROM '.$this->tblName.' order by id';
+        $this->result =$this->query_data($this->sqlQuery);
+        $this->Total_records =mysqli_num_rows($this->result);
+        $this->total_pages= ceil($this->Total_records/$this->results_per_page);
+
+        return $this->total_pages;
+
     }
 
  function SelectSingle($select_item,$cond_email)
@@ -67,16 +82,14 @@ protected $total_pages;
         return $menu;
     } 
 
- 
- 
-function SelectAll()
+function SelectAll($search_word)
     {
 
         $menu = array();
         
         $this->start_from=$this->pagination_elements();
 
-        $this->sqlQuery = 'SELECT * FROM '.$this->tblName.' order by id ASC LIMIT '.$this->start_from.','.$this->results_per_page;
+        $this->sqlQuery = 'SELECT * FROM '.$this->tblName.' WHERE email Like "%'.$search_word.'%" OR first_name Like "%'.$search_word.'%" OR last_name Like "%'.$search_word.'%"  order by id ASC LIMIT '.$this->start_from.','.$this->results_per_page;
         $this->result =$this->query_data($this->sqlQuery);
     
         while($row=mysqli_fetch_assoc($this->result))
@@ -94,16 +107,7 @@ function SelectAll()
         return $menu;
     }
 
-function pagination()
-    {
-        $this->sqlQuery = 'SELECT * FROM '.$this->tblName.' order by id';
-        $this->result =$this->query_data($this->sqlQuery);
-        $this->Total_records =mysqli_num_rows($this->result);
-        $this->total_pages= ceil($this->Total_records/$this->results_per_page);
 
-        return $this->total_pages;
-
-    }
 
 function login($user_email,$user_password)
     {

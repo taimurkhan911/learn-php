@@ -1,19 +1,29 @@
+
 <?php
 include "Layout/main_header.php"
 ?>
-
-
+<div class="row">
+<form action="show.php" method="POST">
+  <div class="col-sm-4" style="width:30%; float:left ">
+<input type="text" name="search_word">
+</div>
+<div class="col-sm-4" style="width:30%; float:left ">
+<input type="submit" name="btn_search" value="Search" class="button" style="background-color:green"/>
+</div>
+</form>
+</div>
+<div class="row">
 <?php
 ///include "Classes/QueryClass.php";
-
+$keyword=isset($_POST['search_word'])?$_POST['search_word']:'';
 spl_autoload_register(function ($class_name) {
     include 'Classes/'.$class_name.'.php';
 });
 $tt="tbl_user";
 $QueryObj =new QueryClass();
 
-$data=$QueryObj->SelectAll();
-//echo "<input type='text'>";
+$data=$QueryObj->SelectAll($keyword);
+
 echo "<table style='width: 100%;'>";
 echo "<tr><th>First Name</th><th>Last Name</th><th>Email</th></tr>";
   foreach($data as $x => $x_value) 
@@ -27,16 +37,8 @@ echo "<tr><th>First Name</th><th>Last Name</th><th>Email</th></tr>";
 echo "</table>";
 $__pagination=$QueryObj->pagination();
 ?>
-<!--echo "<div class='pagination'>";
-echo "  <a href='#'>&laquo;</a>";
-for($i=1; $i<=$__pagination; $i++)
-{
-  echo '<a href="show.php?page='.$i.'">'.$i.'</a>';
-}
-echo " <a href='#'>&raquo;</a>";
-echo "</div>";
-*/
--->
+
+</div>
 <div class="row" style="align:center; width: 50%;">
 
 
@@ -56,3 +58,11 @@ echo '<li class="arrow"><a href="show.php?page='.$i--.'">&raquo;</a></li>';
 </ul>
 </div>
 
+<?php
+include "Layout/Footer.php";
+/* JAVASCRIPTS 
+================================================== -->
+<!-- Javascript files placed here for faster loading -->*/
+
+include "javascripts/addJavascriptFiles.php";
+?>
