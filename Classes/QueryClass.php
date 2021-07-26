@@ -17,6 +17,8 @@ protected $page;
 protected $start_from;
 protected $Total_records;
 protected $total_pages;
+protected $keyword;
+
 
   function __construct() 
     {
@@ -26,7 +28,7 @@ protected $total_pages;
     }
 
 
-  function query_data($sqlQuery)
+  function query_result($sqlQuery)
     {
      $this->sqlQuery=$sqlQuery;
      $this->result=mysqli_query($this->Dbconn, $this->sqlQuery) or trigger_error(mysqli_error($this->Dbconn));
@@ -50,22 +52,53 @@ protected $total_pages;
      $start_from_lim=($this->page-1)*$this->results_per_page;
      return $start_from_lim;
     }
-    
-    function pagination()
+    function keyword_fun()
     {
-        $this->sqlQuery = 'SELECT * FROM '.$this->tblName.' order by id';
-        $this->result =$this->query_data($this->sqlQuery);
+    //$this->results_per_page = 10; 
+    $this->keyword = '';
+         if(isset($_GET["keyword"]))
+           {
+            $this->keyword=$_GET["keyword"];
+             }
+         else
+            {
+            $this->keyword='';
+             }
+
+     
+     return $this->keyword;
+    }
+    function pagination()
+    { 
+        $this->keyword=$this->keyword_fun();
+        $msg="No result found";
+        //if(isset($_POST["search_word"]))
+      //  {
+            $this->sqlQuery = 'SELECT * FROM '.$this->tblName.' WHERE email Like "%'. $this->keyword.'%" OR first_name Like "%'.$this->keyword.'%" OR last_name Like "%'.$this->keyword.'%" order by id';
+            //WHERE email Like "%'.$search_word.'%" OR first_name Like "%'.$search_word.'%" OR last_name Like "%'.$search_word.'%"
+       // }
+       // else
+      //  {
+         //   $this->sqlQuery = 'SELECT * FROM '.$this->tblName.' order by id';
+      //  }
+        $this->result =$this->query_result($this->sqlQuery);
         $this->Total_records =mysqli_num_rows($this->result);
         $this->total_pages= ceil($this->Total_records/$this->results_per_page);
+        if($this->result->num_rows > 0)
+{
 
-        return $this->total_pages;
-
+return $this->total_pages;
+}
+else
+{
+    return     $msg;
+    }
     }
 
  function SelectSingle($select_item,$cond_email)
     {
         $this->sqlQuery= "SELECT". $select_item." FROM ".$this->tblName." WHERE email="."'$cond_email'";
-        $this->result =$this->query_data($this->sqlQuery);
+        $this->result =$this->query_result($this->sqlQuery);
     
         while($row=mysqli_fetch_assoc($this->result ))
         {
@@ -82,15 +115,15 @@ protected $total_pages;
         return $menu;
     } 
 
-function SelectAll($search_word)
+function SelectAll()
     {
 
         $menu = array();
-        
+        $this->keyword=$this->keyword_fun();
         $this->start_from=$this->pagination_elements();
 
-        $this->sqlQuery = 'SELECT * FROM '.$this->tblName.' WHERE email Like "%'.$search_word.'%" OR first_name Like "%'.$search_word.'%" OR last_name Like "%'.$search_word.'%"  order by id ASC LIMIT '.$this->start_from.','.$this->results_per_page;
-        $this->result =$this->query_data($this->sqlQuery);
+        $this->sqlQuery = 'SELECT * FROM '.$this->tblName.' WHERE email Like "%'.$this->keyword.'%" OR first_name Like "%'.$this->keyword.'%" OR last_name Like "%'.$this->keyword.'%"  order by id ASC LIMIT '.$this->start_from.','.$this->results_per_page;
+        $this->result =$this->query_result($this->sqlQuery);
     
         while($row=mysqli_fetch_assoc($this->result))
         {
@@ -116,11 +149,20 @@ function login($user_email,$user_password)
         $error_login_msg="Your password or email is incorrect";
 
         $this->sqlQuery= "SELECT email, password FROM ".$this->tblName." WHERE email ="."'$user_email'"." AND password ="."'$user_password'";
-        $this->result =$this->query_data($this->sqlQuery);
+        $this->result =$this->query_result($this->sqlQuery);
 
         if($this->result->num_rows > 0)
             {
-                echo $login_msg;
+              //  echo $login_msg;
+                  // Storing username in session variable
+            $_SESSION['username'] = $user_email;
+             
+            // Welcome message
+            $_SESSION['success'] = "You have logged in!";
+             
+            // Page on which the user is sent
+            // to after logging in
+            header('location: portofolio2.php');
             }
         else
             {
@@ -132,7 +174,7 @@ function signup($user_first_name,$user_last_name,$user_email,$user_password)
     {
         $msg="Email already exist";
         $sqlQuerycheck= "SELECT email FROM ".$this->tblName." WHERE email="."'$user_email'";
-        $result1=$this->query_data($sqlQuerycheck);
+        $result1=$this->query_result($sqlQuerycheck);
         if ($result1->num_rows > 0) 
             {
                 echo $msg;
@@ -141,7 +183,7 @@ function signup($user_first_name,$user_last_name,$user_email,$user_password)
             {
                 $this->sqlQuery = "INSERT INTO $this->tblName (first_name,last_name,email,password) VALUES ('$user_first_name','$user_last_name','$user_email','$user_password')";
             
-                $this->result =$this->query_data($this->sqlQuery);
+                $this->result =$this->query_result($this->sqlQuery);
                 
                 return  $this->result ;
             }

@@ -10,6 +10,11 @@ spl_autoload_register(function ($class_name){include 'Classes/'.$class_name.'.ph
 $QueryObj =new QueryClass();
 //$table="tbl_user";
 $fname=isset($_POST['first_name'])?$_POST['first_name']:'';
+
+//$fname = $mysqli -> real_escape_string(isset($_POST['first_name'])?$_POST['first_name']:'');
+
+//$firstname = $mysqli -> real_escape_string($_POST['firstname']);
+
 $lname=isset($_POST['last_name'])?$_POST['last_name']:'';
 $Email=isset($_POST['email'])?$_POST['email']:'';
 $Password=isset($_POST['password'])?$_POST['password']:'';
